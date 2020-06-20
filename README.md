@@ -31,8 +31,8 @@ Body is a JSON payload containing the following:
 - `target` (string) - the location of the lambda you're integrating with. Httq will relay all webhook requests to this URL. This needs to work.
 
 ```bash
-curl POST 'https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks' \
---header 'Content-Type: application/json' \
+curl -X POST 'https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks' \
+--header 'Content-Type:application/json' \
 --data-raw '{
     "name": "YOUR_WEBHOOK_NAME",
     "source": "SERVICE_YOU_ARE_INTEGRATING",
