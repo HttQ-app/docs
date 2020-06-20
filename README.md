@@ -16,7 +16,7 @@ Think Zapier, but just for developers. And just for webhook integrations. For no
 
 ## Usage ⚒️
 
-While in early access you can request your credentials by emailing us at [info@httq.dev](mailto:info@httq.dev?subject="Early access")
+While in early access you can request your credentials by emailing us at [info@httq.dev](mailto:info@httq.dev?subject="Early%20access")
 
 ### Set up a hook 🔨
 
