@@ -14,15 +14,30 @@ Set up a queue with an API call, get a webhook endpoint, and magic happens ✨.
 
 Think Zapier, but just for developers. And just for webhook integrations. For now.
 
+You can find us on the web at [httq.dev](https://httq.dev).
+
 ## Usage ⚒️
 
-While in early access you can request your credentials by emailing us at [info@httq.dev](mailto:info@httq.dev?subject="Early%20access")
+While in early access you can request your credentials by filling in the form at [httq.dev](https://httq.dev#waitingList).
+
+### Authentication
+
+All requests dealing with webhook management need to be authenticated.
+You do this by passing your API key in the `Authorization` header, as such:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+Webhook invocation requests don't require authentication, so we advise you keep their URLs secret.
 
 ### Set up a hook 🔨
 
 #### Request
 
 Send a POST request to `https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks`.
+Make sure to pass the authorization header: `Authorization: Bearer YOUR_API_KEY`.
+
 
 Body is a JSON payload containing the following:
 
@@ -33,6 +48,7 @@ Body is a JSON payload containing the following:
 ```bash
 curl -X POST 'https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks' \
 --header 'Content-Type:application/json' \
+--header 'Authorization: Bearer YOUR_API_KEY' \
 --data-raw '{
     "name": "YOUR_WEBHOOK_NAME",
     "source": "SERVICE_YOU_ARE_INTEGRATING",
@@ -54,13 +70,14 @@ The response will contain:
   "name": "YOUR_WEBHOOK_NAME",
   "url": "https://URL_TO_PASS_TO_YOUR_WEBHOOK_INTEGRATION.api.httq.dev/",
   "target": "YOUR_LAMBDA_ENDPOINT",
-  "source": "SERVICE_YOU_ARE_INTEGRATINGn"
+  "source": "SERVICE_YOU_ARE_INTEGRATING"
 }
 ```
 
 ### List hooks 📚
 
 Send a GET request to `https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks`.
+Make sure to pass the authorization header: `Authorization: Bearer YOUR_API_KEY`.
 
 The response will be an array of all the webhooks you have set up:
 
@@ -90,10 +107,25 @@ The response will be an array of all the webhooks you have set up:
 ]
 ```
 
+### Delete a hook 🚮
+
+#### Request
+
+Send a DELETE request to `https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks/HOOK_ID_TO_DELETE`.
+
+Make sure to pass the authorization header: `Authorization: Bearer YOUR_API_KEY`.
+
+```bash
+curl -X DELETE 'https://dev.api.httq.dev/v1/YOUR_USER_ID/hooks/HOOK_ID_TO_DELETE' \
+--header 'Authorization: Bearer YOUR_API_KEY'
+```
+
 ### Invoke a hook 🎣
 
 Pass the URL you get from creating a webhook to the service you're integrating.
 Httq will send it's JSON payload to your target endpoint.
+
+There is no authentication on webhook invocation, so keep that URL safe.
 
 ## Pricing 🤑
 
